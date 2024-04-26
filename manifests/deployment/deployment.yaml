@@ -26,6 +26,6 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: cappybara12/assignment-ai-planet:new-tag
+        image: cappybara12/assignment-ai-planet:new-tag2
         ports:
         - containerPort: 8080
