@@ -1,19 +1,31 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Rollout
 metadata:
   name: my-app
 spec:
+  revisionHistoryLimit: 3
   replicas: 3
   selector:
     matchLabels:
       app: my-app
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause: {}
+      - setWeight: 40
+      - pause: {duration: 10m}
+      - setWeight: 60
+      - pause: {duration: 5m}
+      - setWeight: 80
+      - pause: {duration: 5m}
   template:
     metadata:
       labels:
         app: my-app
     spec:
       containers:
-        - name: my-app
-          image: cappybara12/assignment-ai-planet:new
-          ports:
-            - containerPort: 8080
+      - name: my-app
+        image: cappybara12/assignment-ai-planet:new-tag
+        ports:
+        - containerPort: 8080
