@@ -1,7 +1,7 @@
-apiVersion: apps/v1
+apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
-  name: my-app
+  name: my-app-rollout
 spec:
   replicas: 3
   selector:
@@ -13,7 +13,18 @@ spec:
         app: my-app
     spec:
       containers:
-        - name: my-app
-          image: cappybara12/assignment-ai-planet:new
-          ports:
-            - containerPort: 8080
+      - name: my-app
+        image: cappybara12/assignment-ai-planet:new-tag2
+        ports:
+        - containerPort: 8080
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+        pause: {}
+      - setWeight: 40
+        pause: {duration: 10m}
+      - setWeight: 60
+        pause: {duration: 5m}
+      - setWeight: 80
+        pause: {duration: 5m}
