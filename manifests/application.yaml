@@ -5,7 +5,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/cappybara12/my-app.git
+    repoURL: https://github.com/Cappybara12/web-app-gitops
     targetRevision: HEAD
     path: manifests
   destination:
