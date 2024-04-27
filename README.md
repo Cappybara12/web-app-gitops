@@ -1,5 +1,15 @@
 # Implementation of ArgoCD for Canary Deployment ASSIGNMENT
 
+# Contents
+
+1. [Introduction](#implementation-of-argocd-for-canary-deployment-assignment)
+2. [Steps Taken to Complete the Assignment](#steps-taken-to-complete-the-assignment)
+3. [Relevant Screenshots](#relevant-screenshots)
+4. [Challenges Faced](#challenges-faced)
+5. [Cleanup](#cleanup)
+6. [Project Structure and Key Files](#project-structure-and-key-files)
+7. [What I Learned](#what-i-learned)
+
 ## Introduction
 This documentation outlines the implementation of ArgoCD for a canary deployment strategy. It covers the steps I took ,challenges encountered during the process, how they were resolved, and includes additional information such as cleanup steps and screenshots for visual representation.
 
@@ -125,7 +135,26 @@ Updating Docker images and deploying them via ArgoCD posed challenges regarding 
       ```
 
 
+# Project Structure and Key Files
 
+## Manifests Folder
+
+The `manifests` folder contains the Kubernetes YAML files used for deploying the `my-app` application. Here's a brief overview of the key files inside the `manifests` folder:
+
+- **deployment.yaml**: Defines the deployment configuration for the `my-app` application, including container specifications, labels, and replicas.
+- **service.yaml**: Defines the Kubernetes Service for the `my-app` deployment, exposing it internally within the cluster.
+- **rollout.yaml**: Contains the rollout definition using Argo Rollouts for implementing a canary deployment strategy.
+
+### Contents of rollout.yaml
+
+The `rollout.yaml` file specifies the canary deployment strategy using Argo Rollouts. Here's a breakdown of the key sections in `rollout.yaml`:
+
+- **apiVersion**: Specifies the API version for Argo Rollouts (`argoproj.io/v1alpha1`).
+- **kind**: Defines the resource type as a Rollout.
+- **metadata**: Contains metadata such as the name of the rollout (`my-app-rollout`) and the namespace (`argocd`).
+- **spec**: Defines the rollout's specifications, including replicas, selector labels, template for pod creation, and the canary strategy with incremental steps and pause durations.
+
+This structured approach helps in understanding the organization of project files and the purpose of each key file, particularly focusing on the `rollout.yaml` file that implements the canary deployment strategy using Argo Rollouts.
 ## What I Learned
 
 During this assignment, I delved into several key areas of DevOps and deployment strategies. Here are some abstract insights and learnings:
